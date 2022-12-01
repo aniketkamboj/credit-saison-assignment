@@ -1,9 +1,6 @@
-package model;
+package com.example.creditsaisonassignment.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "foodtruck")
@@ -20,7 +17,7 @@ public class FoodTruck {
     @Column(name = "LocationDescription")
     private String locationDescription;
     @Column(name = "Address")
-    private String address;
+    private String Address;
     @Column(name = "blocklot")
     private String blocklot;
     @Column(name="block")
@@ -64,7 +61,7 @@ public class FoodTruck {
         this.facilityType = facilityType;
         this.cnn = cnn;
         this.locationDescription = locationDescription;
-        this.address = address;
+        this.Address = address;
         this.blocklot = blocklot;
         this.block = block;
         this.lot = lot;
@@ -87,6 +84,7 @@ public class FoodTruck {
 
     public FoodTruck() {
     }
+
 
     public String getLocationId() {
         return locationId;
@@ -112,6 +110,7 @@ public class FoodTruck {
         this.facilityType = facilityType;
     }
 
+
     public String getCnn() {
         return cnn;
     }
@@ -129,11 +128,11 @@ public class FoodTruck {
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.Address = address;
     }
 
     public String getBlocklot() {
