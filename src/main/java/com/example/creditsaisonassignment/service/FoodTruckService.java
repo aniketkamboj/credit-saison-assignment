@@ -2,6 +2,7 @@ package com.example.creditsaisonassignment.service;
 
 import com.example.creditsaisonassignment.model.FoodTruck;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.parsing.Location;
 import org.springframework.stereotype.Service;
 import com.example.creditsaisonassignment.repository.FoodTruckRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,58 +22,52 @@ public class FoodTruckService {
     }
 
     public  List<FoodTruck> getFoodTruckByApplicantName(String name){
-//        System.out.println("Inside getAllFoodTruck");
-//        return foodTruckRepository
         return foodTruckRepository.getFoodTrucksByApplicantIs(name);
     }
 
-    public  List<FoodTruck> getFoodTrucksFromExpiry(String date){
-        List<FoodTruck> allFoodTrucks= getAllFoodTruck();
-        List<FoodTruck> allset = new ArrayList<>();
-        String[] givenDateArray = date.split("/");
-        for(String given:givenDateArray){
-            System.out.println(given);
-        }
-
-//        System.out.println(Arrays.stream(givenDateArray).toArray());
-        LocalDate givenDate =  LocalDate.of(Integer.parseInt(givenDateArray[2]),
-                Integer.parseInt(givenDateArray[0]),
-                Integer.parseInt(givenDateArray[1]));
-//        String givenDate = new Date(givenDateArray[2],givenDateArray[0]-'0',givenDateArray[1]-'0');
-        System.out.println(givenDate);
-
-//        for(FoodTruck foodTruck:allFoodTrucks){
-        for(int i=1;i<allFoodTrucks.size();i++){
-            FoodTruck foodTruck = allFoodTrucks.get(i);
-            System.out.println(foodTruck.toString());
-            String truckExpiryDateAndTime = foodTruck.getExpirationDate();
-            if(truckExpiryDateAndTime==null){
-                continue;
-            }
-            System.out.println(truckExpiryDateAndTime);
-            String truckExpiryDate = truckExpiryDateAndTime.split("\\s+")[0];
-            System.out.println(truckExpiryDate);
-            String[] stringarray = truckExpiryDate.split("/");
-            System.out.println(stringarray);
-            LocalDate date1 =  LocalDate.of(Integer.parseInt(stringarray[2]),
-                    Integer.parseInt(stringarray[0]),
-                    Integer.parseInt(stringarray[1])
-            );
-            if(date1.compareTo(givenDate)<0){
-                allset.add(foodTruck);
-            }
-        }
-        return allset;
+    public  List<FoodTruck> getFoodTrucksFromExpiry(Date date){
+        return foodTruckRepository.findFoodTrucksByExpirationDateFormattedBefore(date);
     }
-//    public  List<FoodTruck> getFoodTrucksFromStreeName(String name){
-////        System.out.println("Inside getAllFoodTruck");
-////        return foodTruckRepository
-//        return foodTruckRepository.getFoodTrucksByApplicantIs(name);
-//    }
 
     public  List<FoodTruck> getFoodTruckByStreetName(String name){
-//        System.out.println("Inside getAllFoodTruck");
-//        return foodTruckRepository
         return foodTruckRepository.getFoodTrucksByLocationDescriptionContainingIgnoreCase(name);
+    }
+
+    public FoodTruck createFoodTruck(FoodTruck foodTruck){
+        return foodTruckRepository.save(foodTruck);
+    }
+
+
+    private  double distance(double lat1, double lon1, double lat2, double lon2) {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        else {
+            double theta = lon1 - lon2;
+            double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+            dist = Math.acos(dist);
+            dist = Math.toDegrees(dist);
+            dist = dist * 60 * 1.1515;
+            dist = dist * 1.609344;
+            return (dist);
+        }
+    }
+
+    public FoodTruck getClosestFoodTruck(String latitude , String longitude){
+        List<FoodTruck> allFoodTrucks= getAllFoodTruck();
+        Double dist = Double.MAX_VALUE;
+        FoodTruck foodTruck = null;
+        for(int i=1;i<allFoodTrucks.size();i++){
+            Double dist2 = distance(Double.parseDouble(latitude),
+                            Double.parseDouble(longitude),
+                            allFoodTrucks.get(i).getLatitude(),
+                            allFoodTrucks.get(i).getLongitude()
+                            );
+            if(dist2<dist){
+                foodTruck = allFoodTrucks.get(i);
+                dist = dist2;
+            }
+        }
+        return foodTruck;
     }
 }

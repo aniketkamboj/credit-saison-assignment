@@ -2,21 +2,23 @@ package com.example.creditsaisonassignment.model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
-@Table(name = "foodtruck")
+@Table(name = "foodtruck5")
 public class FoodTruck {
     @Id
     @Column(name = "locationid")
-    private String locationId;
-    @Column(name="Applicant")
+    private Integer locationId;
+    @Column(name="applicant")
     private String applicant;
-    @Column(name="FacilityType")
+    @Column(name="facilitytype")
     private String facilityType;
     @Column(name = "cnn")
-    private String cnn;
-    @Column(name = "LocationDescription")
+    private Integer cnn;
+    @Column(name = "locationdescription")
     private String locationDescription;
-    @Column(name = "Address")
+    @Column(name = "address")
     private String Address;
     @Column(name = "blocklot")
     private String blocklot;
@@ -26,42 +28,50 @@ public class FoodTruck {
     private String lot;
     @Column(name = "permit")
     private String permit;
-    @Column(name = "Status")
+    @Column(name = "status")
     private String status;
-    @Column(name = "FoodItems")
+    @Column(name = "fooditems")
     private String foodItems;
-    @Column(name = "X_Val")
-    private String xVal;
-    @Column(name = "Y_Val")
-    private String yVal;
-    @Column(name = "Latitude")
-    private String latitude;
-    @Column(name = "Longitude")
-    private String longitude;
-    @Column(name = "Schedule")
+    @Column(name = "x_val")
+    private Double xVal;
+    @Column(name = "y_val")
+    private Double yVal;
+    @Column(name = "latitude")
+    private Double latitude;
+    @Column(name = "longitude")
+    private Double longitude;
+    @Column(name = "schedule")
     private String schedule;
     @Column(name = "dayshours")
     private String daysHours;
-    @Column(name = "NOISent")
+    @Column(name = "noisent")
     private String noiSent;
-    @Column(name = "Approved")
+    @Column(name = "approved")
     private String approved;
-    @Column(name = "Received")
-    private String received;
-    @Column(name = "PriorPermit")
-    private String priorPermit;
-    @Column(name = "ExpirationDate")
+    @Column(name = "received")
+    private Date received;
+    @Column(name = "priorpermit")
+    private Integer priorPermit;
+    @Column(name = "expirationdate")
     private String expirationDate;
-    @Column(name = "Location")
-    private String location;
+    @Column(name = "expirydateformatted")
+    private Date expirationDateFormatted;
+    @Column(name = "fire_prevention_districts")
+    private Integer fire_prevention_districts;
+    @Column(name = "police_districts")
+    private Integer police_districts;
+    @Column(name = "supervisor_districts")
+    private Integer supervisor_districts;
+    @Column(name = "neighborhoods_old")
+    private Integer neighborhoods_old;
 
-    public FoodTruck(String locationId, String applicant, String facilityType, String cnn, String locationDescription, String address, String blocklot, String block, String lot, String permit, String status, String foodItems, String xVal, String yVal, String latitude, String longitude, String schedule, String daysHours, String noiSent, String approved, String received, String priorPermit, String expirationDate, String location) {
+    public FoodTruck(Integer locationId, String applicant, String facilityType, Integer cnn, String locationDescription, String address, String blocklot, String block, String lot, String permit, String status, String foodItems, Double xVal, Double yVal, Double latitude, Double longitude, String schedule, String daysHours, String noiSent, String approved, Date received, Integer priorPermit, String expirationDate, Date expirationDateFormatted, Integer fire_prevention_districts, Integer police_districts, Integer supervisor_districts, Integer neighborhoods_old) {
         this.locationId = locationId;
         this.applicant = applicant;
         this.facilityType = facilityType;
         this.cnn = cnn;
         this.locationDescription = locationDescription;
-        this.Address = address;
+        Address = address;
         this.blocklot = blocklot;
         this.block = block;
         this.lot = lot;
@@ -79,18 +89,21 @@ public class FoodTruck {
         this.received = received;
         this.priorPermit = priorPermit;
         this.expirationDate = expirationDate;
-        this.location = location;
+        this.expirationDateFormatted = expirationDateFormatted;
+        this.fire_prevention_districts = fire_prevention_districts;
+        this.police_districts = police_districts;
+        this.supervisor_districts = supervisor_districts;
+        this.neighborhoods_old = neighborhoods_old;
     }
 
     public FoodTruck() {
     }
 
-
-    public String getLocationId() {
+    public Integer getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(String locationId) {
+    public void setLocationId(Integer locationId) {
         this.locationId = locationId;
     }
 
@@ -110,12 +123,11 @@ public class FoodTruck {
         this.facilityType = facilityType;
     }
 
-
-    public String getCnn() {
+    public Integer getCnn() {
         return cnn;
     }
 
-    public void setCnn(String cnn) {
+    public void setCnn(Integer cnn) {
         this.cnn = cnn;
     }
 
@@ -132,7 +144,7 @@ public class FoodTruck {
     }
 
     public void setAddress(String address) {
-        this.Address = address;
+        Address = address;
     }
 
     public String getBlocklot() {
@@ -183,35 +195,35 @@ public class FoodTruck {
         this.foodItems = foodItems;
     }
 
-    public String getxVal() {
+    public Double getxVal() {
         return xVal;
     }
 
-    public void setxVal(String xVal) {
+    public void setxVal(Double xVal) {
         this.xVal = xVal;
     }
 
-    public String getyVal() {
+    public Double getyVal() {
         return yVal;
     }
 
-    public void setyVal(String yVal) {
+    public void setyVal(Double yVal) {
         this.yVal = yVal;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -247,19 +259,19 @@ public class FoodTruck {
         this.approved = approved;
     }
 
-    public String getReceived() {
+    public Date getReceived() {
         return received;
     }
 
-    public void setReceived(String received) {
+    public void setReceived(Date received) {
         this.received = received;
     }
 
-    public String getPriorPermit() {
+    public Integer getPriorPermit() {
         return priorPermit;
     }
 
-    public void setPriorPermit(String priorPermit) {
+    public void setPriorPermit(Integer priorPermit) {
         this.priorPermit = priorPermit;
     }
 
@@ -271,11 +283,43 @@ public class FoodTruck {
         this.expirationDate = expirationDate;
     }
 
-    public String getLocation() {
-        return location;
+    public Date getExpirationDateFormatted() {
+        return expirationDateFormatted;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setExpirationDateFormatted(Date expirationDateFormatted) {
+        this.expirationDateFormatted = expirationDateFormatted;
+    }
+
+    public Integer getFire_prevention_districts() {
+        return fire_prevention_districts;
+    }
+
+    public void setFire_prevention_districts(Integer fire_prevention_districts) {
+        this.fire_prevention_districts = fire_prevention_districts;
+    }
+
+    public Integer getPolice_districts() {
+        return police_districts;
+    }
+
+    public void setPolice_districts(Integer police_districts) {
+        this.police_districts = police_districts;
+    }
+
+    public Integer getSupervisor_districts() {
+        return supervisor_districts;
+    }
+
+    public void setSupervisor_districts(Integer supervisor_districts) {
+        this.supervisor_districts = supervisor_districts;
+    }
+
+    public Integer getNeighborhoods_old() {
+        return neighborhoods_old;
+    }
+
+    public void setNeighborhoods_old(Integer neighborhoods_old) {
+        this.neighborhoods_old = neighborhoods_old;
     }
 }
