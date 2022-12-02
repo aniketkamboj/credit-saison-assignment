@@ -17,7 +17,6 @@ public class FoodTruckService {
     FoodTruckRepository foodTruckRepository;
 
     public  List<FoodTruck> getAllFoodTruck(){
-        System.out.println("Inside getAllFoodTruck");
         return foodTruckRepository.findAll();
     }
 
@@ -38,6 +37,9 @@ public class FoodTruckService {
     }
 
 
+    /**
+     * Method taken from https://www.geodatasource.com/resources/tutorials/how-to-calculate-the-distance-between-2-locations-using-java/
+     */
     private  double distance(double lat1, double lon1, double lat2, double lon2) {
         if ((lat1 == lat2) && (lon1 == lon2)) {
             return 0;
